@@ -1,10 +1,11 @@
 # Subpages Treinamento
 
-Páginas HTML estáticas de treinamento da Muvecom. Cada unidade ou tema fica em uma pasta própria, com um `index.html` independente.
+Repositório com páginas HTML estáticas de treinamento da Muvecom.
+Cada unidade/tema fica em sua própria pasta, com um `index.html` independente.
 
 Repositório remoto: [github.com/muvecom/subpage-treinamento](https://github.com/muvecom/subpage-treinamento)
 
-## Estrutura
+## Estrutura atual
 
 | Pasta | Conteúdo |
 |-------|----------|
@@ -15,62 +16,77 @@ Repositório remoto: [github.com/muvecom/subpage-treinamento](https://github.com
 | `Hannover/` | Página de treinamento Hannover |
 | `JAC/` | Página de treinamento JAC |
 | `MED Prevent/` | Página de treinamento MED Prevent |
+| `Zeekr/` | Página de treinamento Zeekr |
 
-Para visualizar localmente, abra o arquivo `index.html` desejado no navegador ou sirva a pasta com um servidor HTTP simples (por exemplo `python3 -m http.server` na raiz do projeto).
+## Como visualizar localmente
 
-## Git e GitHub
+### Opção 1: abrir direto no navegador
 
-Clone e remote HTTPS padrão:
+Abra o arquivo `index.html` da pasta desejada.
+
+### Opção 2: subir servidor local (recomendado)
+
+Na raiz do projeto:
+
+```bash
+python3 -m http.server 8000
+```
+
+Depois acesse no navegador:
+
+- `http://localhost:8000/Alpha/`
+- `http://localhost:8000/BAS%20Auto/`
+- `http://localhost:8000/Zeekr/`
+
+## Fluxo básico de atualização
+
+```bash
+git add -A
+git commit -m "Atualiza página de treinamento X"
+git push origin main
+```
+
+Se a política do repositório exigir, use branch/PR conforme as regras da organização.
+
+## GitHub e autenticação (PAT/SSH)
+
+### Clone via HTTPS
 
 ```bash
 git clone https://github.com/muvecom/subpage-treinamento.git
 cd subpage-treinamento
 ```
 
-### Onde usar o Personal Access Token (PAT)
+### Uso correto do Personal Access Token (PAT)
 
-**Não coloque o token em arquivo dentro deste repositório** (nem em `README`, `.env` commitado, scripts versionados ou URL do remote salva no Git com o token embutido). Isso expõe o segredo no histórico do Git e no GitHub.
+**Nunca** coloque token em arquivos do repositório (`README`, scripts, `.env` versionado ou URL remota com token embutido).
 
-Use o PAT apenas quando o Git **pedir senha** ao fazer `git push` ou `git pull` via HTTPS:
+Use o token somente quando o Git solicitar credenciais em operações HTTPS (`git pull`/`git push`):
 
-1. **Usuário:** seu nome de usuário do GitHub  
-2. **Senha:** cole o **token** (não use a senha da conta)
+1. **Usuário:** seu usuário GitHub
+2. **Senha:** cole o **PAT** (não a senha da conta)
 
-Assim o token não fica no projeto; só trafega na autenticação.
+### Armazenar credenciais localmente (opcional)
 
-### Salvar credenciais no computador (opcional)
-
-Para não digitar o token a cada push, você pode usar o armazenamento de credenciais do Git **na sua máquina** (fora do repositório):
+Persistente em arquivo local da máquina:
 
 ```bash
 git config --global credential.helper store
 ```
 
-Na próxima vez que o Git pedir usuário e senha, ele gravará em `~/.git-credentials` (permissões restritas). Revogue tokens antigos em [GitHub → Settings → Developer settings → Tokens](https://github.com/settings/tokens) se suspeitar de vazamento.
-
-Outra opção é o cache temporário (memória, expira em minutos):
+Temporário em memória (8h):
 
 ```bash
-git config --global credential.helper 'cache --timeout=28800'
+git config --global credential.helper "cache --timeout=28800"
 ```
 
-### Alternativa: SSH
+### Alternativa com SSH
 
-Se preferir não usar PAT com HTTPS, configure uma [chave SSH no GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) e altere o remote:
+Configure uma [chave SSH no GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) e troque o remote:
 
 ```bash
 git remote set-url origin git@github.com:muvecom/subpage-treinamento.git
 ```
-
-## Publicar alterações
-
-```bash
-git add -A
-git commit -m "Sua mensagem"
-git push origin main
-```
-
-Se a política do repositório exigir, use merge request ou branch conforme as regras da organização.
 
 ## Licença / uso
 
